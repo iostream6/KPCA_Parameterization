@@ -20,11 +20,11 @@ function dSquared = sdm(Xrow)
     %
     %   $Author: Ilamah, Osho $ $Date:2018.07.15 $ $Revision: 0.1 
 
-      m   = size(X, 1);
-      Y   = dot(X, X, 2);
+      m   = size(Xrow, 1);
+      Y   = dot(Xrow, Xrow, 2);
       Z1  = repmat(Y,1,m);
       Z2  = repmat(Y',m,1);
-      dSquared = Z1 + Z2 - (2*(X*X'));
+      dSquared = Z1 + Z2 - (2*(Xrow*Xrow'));
       
       % negative squared distances have no meaning and should not exist to begin with
       dSquared(dSquared < 0) = 0 ;
