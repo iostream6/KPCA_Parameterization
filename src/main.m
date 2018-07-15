@@ -40,7 +40,8 @@ kernel.offset = 1;
 %   Modify GRBF kernel properties in this section
 %      The settings here will be ignored if Polynomial kernel is chosen below
 %   TODO
-kernel.sigma = 7.132022; % TODO for example use the heuristics by C. Lampert to estimate sigma from X
+GRBF_param = 3;
+kernel.sigma = getSigma(X, GRBF_param); % Use the heuristics by C. Lampert, and Vo to estimate sigma from X
 
 %   Select the kernel type
 kernel.type = 'polynomial';
