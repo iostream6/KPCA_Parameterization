@@ -20,17 +20,8 @@ if strcmp(options.type, 'polynomial')
 elseif strcmp(options.type, 'GRBF')
     % GRBF kernel
     sigma = options.sigma;
-    squaredDistances = squaredDistanceMatrix(X);
-    
-    %{
-       X2 = X';
-       K2 = bsxfun(@plus, dot(X2, X2, 1)', dot(X2, X2, 1)) - 2 * (X * X2);      
-       fprintf('Norm of difference in Distance matrices from 2 methods: %e \n', norm(squaredDistances - K2, 'fro'));    
-    %}
-    
-    
-    fprintf('SIGMA: %e \n', sigma);
-    
+    squaredDistances = sdm(X);   
+    %fprintf('SIGMA: %e \n', sigma);
     K = exp((-squaredDistances) / (2 * sigma * sigma));
     
 else
@@ -39,15 +30,4 @@ else
     K = zeros(n, n);
 end
 
-end
-
-
-function DX2 = squaredDistanceMatrix(X)
-  m   = size(X, 1);
-  Y   = dot(X, X, 2);
-  Z1  = repmat(Y,1,m);
-  Z2  = repmat(Y',m,1);
-  DX2 = Z1 + Z2 - (2*(X*X'));
-  % negative distances have no meaning and should not happen
-  DX2(DX2 < 0) = 0 ;
 end
